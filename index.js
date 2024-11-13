@@ -14,15 +14,23 @@ const getData = function () {
         col.classList.add('col', 'mt-4')
 
         col.innerHTML = `
-            <div class="card h-100" style="width: 15rem;">
-              <img src="${book.img}" class="card-img-top "   alt="...">
-              <div class="card-body">
-                <h5 class="card-title">${book.title}</h5>
-                <p class="card-text">${book.price}$</p>
-                <button class="btn btn-primary scarta">Scarta</button>
-                <button class="btn btn-primary compra">Compra ora</button>
-              </div>
-            </div>
+        
+  <div class="container">
+  <div class="row">
+    <div class="col-12">
+      <div class="card h-100">
+        <img src="${book.img}" class="card-img-top" alt="book picture">
+        <div class="card-body">
+          <h5 class="card-title">${book.title}</h5>
+          <p class="card-text">${book.price}$</p>
+         <button class="btn btn-outline-secondary scarta">Delete</button>
+         <button class="btn btn-outline-secondary compra">Buy</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
           `
         row.appendChild(col)
 
@@ -54,3 +62,33 @@ const getData = function () {
 }
 
 getData()
+
+const body = document.getElementById('body')
+const mode = document.getElementById('mode')
+
+function toggleTheme() {
+  if (body.classList.contains('bg-light')) {
+    body.classList.remove('bg-light')
+    body.classList.add('bg-dark')
+    localStorage.setItem('theme', 'dark')
+  } else {
+    body.classList.add('bg-light')
+    body.classList.remove('bg-dark')
+    localStorage.setItem('theme', 'light')
+  }
+}
+
+function loadTheme() {
+  const savedTheme = localStorage.getItem('theme')
+  if (savedTheme === 'dark') {
+    body.classList.add('backgroundMode')
+    body.classList.remove('background')
+  } else {
+    body.classList.add('background')
+    body.classList.remove('backgroundMode')
+  }
+}
+
+mode.addEventListener('click', toggleTheme)
+
+loadTheme()
